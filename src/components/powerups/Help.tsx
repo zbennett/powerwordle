@@ -83,6 +83,22 @@ export const Help = ({ solution, guesses }: Props) => {
     setHintString(randomString)
   }
 
+  const getDefinition = async () => {
+    const response = await fetch(
+      'https://api.dictionaryapi.dev/api/v2/entries/en/' + solution
+    )
+    const json = await response.json()
+    console.log(json)
+    const defList = json[0].meanings[0].definitions
+    let definition: any = ''
+    console.log(defList)
+    defList.forEach((def: any) => {
+      definition += def.definition + '\n'
+      console.log(def)
+    })
+    alert(definition)
+  }
+
   return (
     <div className="bg-slate-100 grid ">
       <div className="flex  justify-center">
@@ -101,12 +117,12 @@ export const Help = ({ solution, guesses }: Props) => {
         >
           Random Yellow
         </button>
-        {/* <button
+        <button
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-          onClick={newWord}
+          onClick={getDefinition}
         >
-          New Word
-        </button> */}
+          Definition
+        </button>
       </div>
       <div>
         {showHint && (
