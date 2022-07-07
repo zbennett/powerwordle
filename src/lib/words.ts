@@ -131,4 +131,14 @@ export const getSolution = (today: Date) => {
   }
 }
 
-export const { solution, solutionIndex, tomorrow } = getSolution(getToday())
+export const setNewWord = () => {
+  return getSolution(randomDate(firstGameDate, new Date(2027, 0, 1)))
+}
+
+function randomDate(start: Date, end: Date) {
+  return new Date(
+    start.getTime() + Math.random() * (end.getTime() - start.getTime())
+  )
+}
+
+export const { solution, solutionIndex, tomorrow } = setNewWord()

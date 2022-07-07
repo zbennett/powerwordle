@@ -25,6 +25,7 @@ import {
   solution,
   findFirstUnusedReveal,
   unicodeLength,
+  setNewWord,
 } from './lib/words'
 import { addStatsForCompletedGame, loadStats } from './lib/stats'
 import {
@@ -41,6 +42,7 @@ import { useAlert } from './context/AlertContext'
 import { Navbar } from './components/navbar/Navbar'
 import { isInAppBrowser } from './lib/browser'
 import { MigrateStatsModal } from './components/modals/MigrateStatsModal'
+import { Help } from './components/powerups/Help'
 
 function App() {
   const prefersDarkMode = window.matchMedia(
@@ -85,6 +87,13 @@ function App() {
     }
     return loaded.guesses
   })
+
+  const setANewWord = () => {
+    guesses.forEach((guess) => {
+      guess = ''
+    })
+    setNewWord()
+  }
 
   const [stats, setStats] = useState(() => loadStats())
 
@@ -259,6 +268,7 @@ function App() {
         setIsStatsModalOpen={setIsStatsModalOpen}
         setIsSettingsModalOpen={setIsSettingsModalOpen}
       />
+      <Help solution={solution} guesses={guesses} />
       <div className="pt-2 px-1 pb-8 md:max-w-7xl w-full mx-auto sm:px-6 lg:px-8 flex flex-col grow">
         <div className="pb-6 grow">
           <Grid
